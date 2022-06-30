@@ -2,7 +2,7 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
         //O(n) Time complexity
-        set<int> st;
+          unordered_set<int> st;
         for(auto num:nums){
             st.insert(num);
         }
@@ -21,5 +21,6 @@ public:
             }
         }
         return mx_len;
+    
     }
 };
