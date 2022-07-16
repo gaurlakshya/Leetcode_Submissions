@@ -14,12 +14,10 @@ public:
            else if(count_1==0){
                 ele_1=nums[i];
                 count_1++;
-                continue;
             }
             else if(count_2==0){
                 ele_2=nums[i];
                 count_2++;
-                continue;
             }
             
             
