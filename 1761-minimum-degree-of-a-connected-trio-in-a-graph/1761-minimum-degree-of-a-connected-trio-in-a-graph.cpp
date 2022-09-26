@@ -1,25 +1,24 @@
 class Solution {
 public:
     int minTrioDegree(int n, vector<vector<int>>& edges) {
-        vector<vector<int>> vec(n+1,vector<int>(n+1,0));
-        vector<int> degree(n+1,0);
-        for(auto edge:edges){
-            vec[edge[0]][edge[1]]=1;
-            vec[edge[1]][edge[0]]=1;
-            degree[edge[0]]++;
-            degree[edge[1]]++;
+        int ans=1e9;
+        int v[n+1][n+1];
+        memset(v,0,sizeof(v));
+        int deg[n+1];
+        memset(deg,0,sizeof(deg));
+        for(int i=0;i<edges.size();i++){
+            int x=edges[i][0], y=edges[i][1];
+            v[x][y]++;
+            v[y][x]++;
+            deg[x]++;
+            deg[y]++;
         }
-        int mn=INT_MAX;
         for(int i=1;i<=n;i++){
-            for(int j=i+1;j<=n;j++){
-                for(int k=j+1;k<=n;k++){
-                    if(vec[i][j]==1 && vec[j][k]==1 && vec[k][i]==1)
-                        mn=min(mn,degree[i]+degree[j]+degree[k]-6);
-                }
-            }
+            for(int j=i+1;j<=n;j++)
+                for(int k=j+1;k<=n;k++)
+                    if(v[i][j] && v[j][k] && v[k][i])
+                        ans=min(ans,deg[i]+deg[j]+deg[k]-6);
         }
-        if(mn==INT_MAX)
-            return -1;
-        return mn;
+        return ans==1e9 ? -1:ans;
     }
 };
