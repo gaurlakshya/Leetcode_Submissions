@@ -1,22 +1,22 @@
 class Solution {
 public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) {
-          vector<unordered_set<int>> vec(n);
-     for (auto road: roads) {
-            vec[road[0]].insert(road[1]);
-            vec[road[1]].insert(road[0]);
+        vector<int> deg(n,0);
+        vector<vector<int>> edge(n,vector<int>(n,0));
+        for(int i=0;i<roads.size();i++){
+            int x= roads[i][0];
+            int y=roads[i][1];
+            deg[x]++;
+            deg[y]++;
+            edge[x][y]++;
+            edge[y][x]++;
+            
         }
-        int mx=0,count=0;
+        int ans=0;
         for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                 count=vec[i].size();
-                count+=vec[j].size();
-                if(vec[j].count(i))
-                    count--;
-         mx=max(mx,count);
-
-            }
+            for(int j=i+1;j<n;j++)
+                ans=max(ans,deg[i]+deg[j]-edge[i][j]);
         }
-        return mx;
+        return ans;
     }
 };
