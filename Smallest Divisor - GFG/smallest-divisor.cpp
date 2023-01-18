@@ -22,7 +22,7 @@ class Solution {
     int smallestDivisor(vector<int>& nums, int threshold) {
 
         // Write your code here.
-        sort(nums.begin(),nums.end());
+     //   sort(nums.begin(),nums.end());
         int l=1;
         int h=0;
         for(auto x:nums){
