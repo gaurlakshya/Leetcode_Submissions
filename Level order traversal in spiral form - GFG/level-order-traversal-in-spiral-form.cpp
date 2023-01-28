@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -107,6 +107,7 @@ int main() {
 }
 
 
+
 // } Driver Code Ends
 
 
@@ -127,48 +128,36 @@ struct Node
 
 //Function to return a list containing the level order traversal in spiral form.
 vector<int> findSpiral(Node *root)
-{ 
-  vector<int>ans;
-  vector<int> rows;
-  if(root == NULL) {
-      return ans;
-  }
-  
-  bool leftToRight = false;
-  queue<Node*>q;
-  q.push(root);
-
-  while(q.size() > 0) {
-      int sizeOfQueue = q.size();
-      for(int i=0; i<sizeOfQueue; i++) {
-          Node *temp = q.front();
-
-         rows.push_back(temp->data);
-          
-          if(temp->left != NULL) {
-              q.push(temp->left);
-          }
-          if(temp->right != NULL) {
-              q.push(temp->right);
-          }
-          
-        q.pop();
-          
-      }
-      
-      if(leftToRight==true){
-         for(auto i=rows.begin(); i!=rows.end(); i++)
-              ans.push_back(*i);
-      }
-   else{
-              reverse(rows.begin(), rows.end());
-              for(auto i=rows.begin(); i!=rows.end(); i++)
-              ans.push_back(*i);
-          }
-   rows.clear();
-          
-   leftToRight=!leftToRight;
-  }
-  return ans;
-  
+{
+    //Your code here
+    vector<int> ans;
+    if(root==NULL) return ans;
+    bool lefttoright=false;
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty()){
+        int sze=q.size();
+        vector<int> res(sze);
+        if(lefttoright){
+            for(int i=0;i<sze;i++){
+                Node* temp=q.front();
+                q.pop();
+                res[i]=temp->data;
+                if(temp->left) q.push(temp->left);
+                if(temp->right) q.push(temp->right);
+            }
+        }
+        else{
+            for(int i=sze-1;i>=0;i--){
+                Node* temp=q.front();
+                q.pop();
+                res[i]=temp->data;
+                if(temp->left) q.push(temp->left);
+                if(temp->right) q.push(temp->right);
+            }
+        }
+        for(int i=0;i<sze;i++) ans.push_back(res[i]);
+        lefttoright=!lefttoright;
+    }
+    return ans;
 }
