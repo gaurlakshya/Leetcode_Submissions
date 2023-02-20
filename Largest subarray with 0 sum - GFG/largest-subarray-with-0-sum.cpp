@@ -13,20 +13,21 @@ class Solution{
     int maxLen(vector<int>&A, int n)
     {   
         // Your code here
-        unordered_map<int,int> mpp;
+        unordered_map<int,int> ump;
         int sum=0;
-        int anslen=0;
-        int mxlen=0;
+        int res=0;
         for(int i=0;i<n;i++){
             sum+=A[i];
-            if(sum==0) mxlen=i+1;
-            if(mpp.count(sum)){
-                anslen=i-mpp[sum];
-                mxlen=max(mxlen,anslen);
-            }else
-            mpp[sum]=i;
+            if(sum==0) {
+                res=i+1;
+            }
+            if(ump.find(sum)!=ump.end()){
+                res=max(res,i-ump[sum]);
+            }else{
+                ump[sum]=i;
+            }
         }
-        return mxlen;
+        return res;
     }
 };
 
